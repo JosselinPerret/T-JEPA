@@ -32,7 +32,7 @@ Input Table → Feature Tokenizer → [visible_tokens, masked_tokens]
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/T-JEPA.git
+git clone https://github.com/JosselinPerret/T-JEPA.git
 cd T-JEPA
 
 # Create virtual environment
@@ -246,7 +246,7 @@ If you use this code in your research, please cite:
 @software{tabular_jepa,
   title={Tabular-JEPA: Joint Embedding Predictive Architecture for Tabular Data},
   year={2024},
-  url={https://github.com/yourusername/T-JEPA}
+  url={https://github.com/JosselinPerret/T-JEPA}
 }
 ```
 
