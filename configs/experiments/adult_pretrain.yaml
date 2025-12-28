@@ -1,0 +1,29 @@
+# Adult Census Pre-training Configuration
+# ========================================
+
+# Inherit from default
+defaults:
+  - ../default
+
+# Override for Adult dataset
+data:
+  dataset_name: "adult"
+  batch_size: 256
+
+# Smaller model for Adult (relatively small dataset)
+model:
+  d_model: 64
+  encoder_layers: 4
+  encoder_heads: 4
+  encoder_ff_dim: 256
+  predictor_layers: 2
+  predictor_heads: 4
+  predictor_ff_dim: 128
+  dropout: 0.1
+
+pretrain:
+  epochs: 50
+  learning_rate: 5.0e-4
+
+experiment:
+  name: "adult-pretrain"

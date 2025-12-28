@@ -1,0 +1,81 @@
+# Tabular-JEPA Default Configuration
+# ==================================
+
+# Data settings
+data:
+  dataset_name: "adult"          # Dataset to use: adult, covertype, higgs, jannis, helena
+  batch_size: 256
+  val_ratio: 0.1
+  test_ratio: 0.1
+  num_workers: 0                 # DataLoader workers (0 for Windows compatibility)
+  random_state: 42
+
+# Model architecture
+model:
+  d_model: 128                   # Embedding dimension
+  encoder_layers: 6              # Number of transformer layers in encoder
+  encoder_heads: 4               # Number of attention heads in encoder
+  encoder_ff_dim: 512            # Feed-forward dimension in encoder
+  predictor_layers: 2            # Number of transformer layers in predictor
+  predictor_heads: 4             # Number of attention heads in predictor
+  predictor_ff_dim: 256          # Feed-forward dimension in predictor
+  predictor_type: "transformer"  # Predictor type: transformer, mlp
+  dropout: 0.1                   # Dropout rate
+  activation: "gelu"             # Activation function
+
+# JEPA-specific settings
+jepa:
+  mask_ratio: 0.5                # Fraction of features to mask
+  mask_type: "random"            # Masking strategy: random, block
+  min_masked: 1                  # Minimum number of features to mask
+  ema_decay: 0.996               # EMA decay for target encoder
+  ema_decay_base: 0.996          # Base EMA decay for target encoder
+  ema_decay_max: 1.0             # Maximum EMA decay
+  ema_warmup_steps: 1000         # Steps to warm up EMA decay
+  ema_schedule: "constant"       # EMA schedule: constant, cosine, linear
+
+# Loss function
+loss:
+  normalize: true                # L2 normalize embeddings before loss
+  loss_type: "mse"               # Loss type: mse, smooth_l1
+  vic_weight: 0.0                # VICReg regularization weight (0 = disabled)
+
+# Pre-training settings
+pretrain:
+  epochs: 100
+  learning_rate: 1.0e-4
+  weight_decay: 0.05
+  warmup_epochs: 10
+  min_lr: 1.0e-6                 # Minimum learning rate for cosine schedule
+  gradient_clip: 1.0             # Max gradient norm
+  gradient_accumulation_steps: 1
+  
+  # Optimizer
+  optimizer: "adamw"             # adamw, adam, sgd
+  betas: [0.9, 0.999]
+  
+  # Scheduler
+  scheduler: "cosine"            # cosine, linear, step
+  
+  # Logging
+  log_interval: 100              # Log every N steps
+  save_interval: 10              # Save checkpoint every N epochs
+  
+# Linear probing settings
+linear_probe:
+  epochs: 50
+  learning_rate: 1.0e-3
+  weight_decay: 0.0
+  pooling: "mean"                # Pooling strategy: mean, first, cls
+  
+# Experiment tracking
+experiment:
+  name: "tabular-jepa"
+  output_dir: "./outputs"
+  seed: 42
+  device: "auto"                 # auto, cuda, cpu
+  
+  # Logging backend
+  use_wandb: false
+  use_tensorboard: true
+  wandb_project: "tabular-jepa"

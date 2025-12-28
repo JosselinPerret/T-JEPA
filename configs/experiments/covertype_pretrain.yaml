@@ -1,0 +1,29 @@
+# Forest Covertype Pre-training Configuration
+# ============================================
+
+# Inherit from default
+defaults:
+  - ../default
+
+# Override for Covertype dataset
+data:
+  dataset_name: "covertype"
+  batch_size: 512                # Larger batch for bigger dataset
+
+# Larger model for Covertype (more samples)
+model:
+  d_model: 128
+  encoder_layers: 6
+  encoder_heads: 4
+  encoder_ff_dim: 512
+  predictor_layers: 2
+  predictor_heads: 4
+  predictor_ff_dim: 256
+  dropout: 0.1
+
+pretrain:
+  epochs: 100
+  learning_rate: 1.0e-4
+
+experiment:
+  name: "covertype-pretrain"
